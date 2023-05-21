@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+</head>
+<body>
+  <h1>Zerinho ou um americano</h1>
+  <img src="/logo.jpg" style="width: 200px" />
+
+  <div id="mensagens">
+  </div>
+
+  <input id="nomeInput"type="text" />
+  <button onClick="entrar(event)">
+    Entrar
+  </button>
+
+  <h3>Mundiça</h3>
+  <div id="mundica" >
+  </div>
+
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+  <script src="/game_client.js"></script>
+</body>
+</html>
