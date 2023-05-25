@@ -8,6 +8,19 @@ function entrar(event) {
 
 }
 
+function enviarMensagemPara(event) {
+  const msgParaSocketId = document.getElementById('msgParaSocketId')
+  const msgParaTexto = document.getElementById('msgParaTexto')
+
+  const dados = {
+    socketId: msgParaSocketId.value,
+    texto: msgParaTexto.value
+  }
+
+  serverSocket.emit('enviarMensagemPara', dados)
+  
+}
+
 serverSocket.on('mensagem', (msg) => {
   const mensagens = document.getElementById('mensagens')
   mensagens.innerHTML += `<p>${msg}</p>`
@@ -19,7 +32,7 @@ serverSocket.on('players', (players) => {
   const playersDiv = document.getElementById('mundica');
   playersDiv.innerHTML = '';
   players.forEach(player => {
-    playersDiv.innerHTML += `<p>${player.nome}</p>`
+    playersDiv.innerHTML += `<p>${player.nome} - ${player.socketId}</p>`
   });
 
 

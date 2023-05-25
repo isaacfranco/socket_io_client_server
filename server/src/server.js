@@ -5,7 +5,7 @@ var cors = require('cors');
 
 var Game = require('./game');
 
-const { randomUUID } = require('crypto');
+//const { randomUUID } = require('crypto');
 
 var app = express();
 
@@ -23,6 +23,10 @@ var io = new Server(httpServer, {
 });
 
 let players = [];
+function findBySocketId(socketId) {
+  return players.find((e) =>  e.socketId === socketId)
+}
+
 function addPlayer(nome, socketId) {
 
   const existingPlayer = players.filter((e) => e.nome === nome)
@@ -47,6 +51,8 @@ io.on('connection', (clientSocket) => {
   setTimeout(() => {
     clientSocket.emit('mensagem', 'conectado');
   }, 2000)
+
+  clientSocket.emit('players', players);
   
   //setInterval(() => {}, 1000)
 
@@ -57,6 +63,13 @@ io.on('connection', (clientSocket) => {
     
     // mandar players para todos
     //io.emit('players', players);
+  });
+
+  clientSocket.on('enviarMensagemPara', (dados) => {
+    //console.log(dados)
+    const remetente = findBySocketId(clientSocket.id);
+    const msg = `${remetente.nome}: ${dados.texto}`;
+    io.to(dados.socketId).emit('mensagem', msg)
   })
 }
 )
@@ -69,7 +82,7 @@ setInterval(() => {
 
 
 httpServer.listen(3000, () => {
-  console.log('servidor iniciou')
+  console.log('servidor iniciou na porta 3000')
 }
 )
 

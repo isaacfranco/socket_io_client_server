@@ -25,5 +25,14 @@
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
   <script src="/game_client.js"></script>
+
+  <div>
+    <h3>Mensagem privada</h3>
+    SocketID: <input id="msgParaSocketId" /><br/>
+    Mensagem: <input id="msgParaTexto" /><br/>
+    <button onClick="enviarMensagemPara(event)">
+      Enviar mensagem para
+    </button>
+  </div>
 </body>
 </html>
